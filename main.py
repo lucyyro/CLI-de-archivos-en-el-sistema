@@ -11,27 +11,26 @@ def clearConsole():
     command = 'cls'
     os.system(command)
 
-def listar(a):
+def listar():
     if current_path.is_dir():
         for dir in current_path.iterdir():
             if dir.is_file and dir.suffix == '.txt':
                 print(dir.name)
             
-def leer(b):
+def leer(nombre):
     file_path = current_directory / str(nombre)
     with open(file_path, 'r') as file:
         content = file.read()
         print(content)
 
-
-def eliminar(c):
+def eliminar(path_origen):
     path_origen.unlink()
     print("Se ha eliminado el archivo")
 
-def crear(d):
+def crear(nombre_archivo):
     file_path = current_directory / str(nombre_archivo)
     with open(file_path, 'w') as file:
-        file.read(texto)
+        file.write(texto)
 
 def inicio():
     print("""Seleccione una opción:  
@@ -40,9 +39,6 @@ def inicio():
         3) Eliminar un documento
         4) Crear un documento
         5) Salir del programa""")
-
-def salir():
-    return inicio()
 
 while True:
     clearConsole()
@@ -53,7 +49,7 @@ while True:
         archivos = ''
         clearConsole()
         print('Estos son los documentos de texto en esta carpeta:')
-        listar(archivos)
+        listar()
         salir = input('Ingrese x para regresar al menú: ')
         if salir == 'x':
             break
