@@ -11,6 +11,7 @@ def clearConsole():
     command = 'cls'
     os.system(command)
 
+
 def listar(a):
     if current_path.is_dir():
         for dir in current_path.iterdir():
@@ -27,32 +28,46 @@ def eliminar(c):
     path_origen.unlink()
     print("Se ha eliminado el archivo")
 
-
-print("""Seleccione una opción:  
+def inicio():
+    print("""Seleccione una opción:  
         1) Listar los documentos de texto de esta carpeta  
         2) Leer un documento  
         3) Eliminar un documento
         4) Salir del programa""")
 
-opcion = input('Opción: ')
+def salir():
+    return inicio()
 
-if opcion == '1':
+while True:
     clearConsole()
-    print('Estos son los documentos de texto en esta carpeta:')
-    listar(input)
-    print('Presione x para regresar al menú')
+    inicio()
+    opcion = input('Opción: ')
 
-elif opcion == '2':
-    clearConsole()
-    nombre = input('¿Cuál es el nombre del texto que te gustaría leer? ')
-    leer(nombre)
-    print('Presione x para regresar al menú')
+    while opcion == '1':
+        archivos = ''
+        clearConsole()
+        print('Estos son los documentos de texto en esta carpeta:')
+        listar(archivos)
+        salir = input('Ingrese x para regresar al menú: ')
+        if salir == 'x':
+            break
 
-elif opcion == '3':
-    clearConsole() 
-    origen = input('¿Cuál es el nombre del texto que le gustaría eliminar? ')
-    path_origen = current_path / origen
-    eliminar(path_origen)
-    print('Presione x para regresar al menú')
+    while opcion == '2':
+        clearConsole()
+        nombre = input('¿Cuál es el nombre del texto que te gustaría leer? ')
+        leer(nombre)
+        salir = input('Ingrese x para regresar al menú: ')
+        if salir == 'x':
+            break
 
+    while opcion == '3':
+        clearConsole() 
+        origen = input('¿Cuál es el nombre del texto que le gustaría eliminar? ')
+        path_origen = current_path / origen
+        eliminar(path_origen)
+        salir = input('Ingrese x para regresar al menú: ')
+        if salir == 'x':
+            break
 
+    if opcion == '4':
+        break
