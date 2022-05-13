@@ -11,75 +11,78 @@ def clearConsole():
     command = 'cls'
     os.system(command)
 
-def listar():
-    if current_path.is_dir():
-        for dir in current_path.iterdir():
-            if dir.is_file and dir.suffix == '.txt':
-                print(dir.name)
+class Program: 
+    def menu(self):
+        print("""Seleccione una opción:  
+            1) Listar los documentos de texto de esta carpeta  
+            2) Leer un documento  
+            3) Eliminar un documento
+            4) Crear un documento
+            5) Salir del programa""")
+
+    def list_doc(self):
+        if current_path.is_dir():
+            for dir in current_path.iterdir():
+                if dir.is_file and dir.suffix == '.txt':
+                    print(dir.name)
             
-def leer(nombre):
-    file_path = current_directory / str(nombre)
-    with open(file_path, 'r') as file:
-        content = file.read()
-        print(content)
+    def read(self, name):
+        file_path = current_directory / str(name)
+        with open(file_path, 'r') as file:
+            content = file.read()
+            print(content)
 
-def eliminar(path_origen):
-    path_origen.unlink()
-    print("Se ha eliminado el archivo")
+    def delete(self, path_origen):
+        path_origen.unlink()
+        print("Se ha eliminado el archivo")
 
-def crear(nombre_archivo):
-    file_path = current_directory / str(nombre_archivo)
-    with open(file_path, 'w') as file:
-        file.write(texto)
+    def create(self, file_name):
+        file_path = current_directory / str(file_name)
+        with open(file_path, 'w') as file:
+            file.write(text)
 
-def inicio():
-    print("""Seleccione una opción:  
-        1) Listar los documentos de texto de esta carpeta  
-        2) Leer un documento  
-        3) Eliminar un documento
-        4) Crear un documento
-        5) Salir del programa""")
+program = Program()
 
 while True:
     clearConsole()
-    inicio()
-    opcion = input('Opción: ')
+    program.menu()
+    option = input('Opción: ')
 
-    while opcion == '1':
+    while option == '1':
         archivos = ''
         clearConsole()
         print('Estos son los documentos de texto en esta carpeta:')
-        listar()
-        salir = input('Ingrese x para regresar al menú: ')
-        if salir == 'x':
+        program.list_doc()
+        exit = input('Ingrese x para regresar al menú: ')
+        if exit == 'x':
             break
 
-    while opcion == '2':
+    while option == '2':
         clearConsole()
-        nombre = input('¿Cuál es el nombre del texto que te gustaría leer? ')
-        leer(nombre)
-        salir = input('Ingrese x para regresar al menú: ')
-        if salir == 'x':
+        name = input('¿Cuál es el nombre del texto que te gustaría leer? ')
+        program.read(name)
+        exit = input('Ingrese x para regresar al menú: ')
+        if exit == 'x':
             break
 
-    while opcion == '3':
+    while option == '3':
         clearConsole() 
-        origen = input('¿Cuál es el nombre del texto que le gustaría eliminar? ')
-        path_origen = current_path / origen
-        eliminar(path_origen)
-        salir = input('Ingrese x para regresar al menú: ')
-        if salir == 'x':
+        origin = input('¿Cuál es el nombre del texto que le gustaría eliminar? ')
+        path_origin = current_path / origin
+        program.delete(path_origin)
+        exit = input('Ingrese x para regresar al menú: ')
+        if exit == 'x':
             break
 
-    while opcion == '4':
+    while option == '4':
         clearConsole()
-        nombre_archivo = input("Nombre del archivo: ")
-        texto = input("Escribe algo en el archivo: ")
-        crear(nombre_archivo)
+        file_name = input("Nombre del archivo: ")
+        text = input("Escribe algo en el archivo: ")
+        program.create(file_name)
         print("El archivo se ha creado")
-        salir = input('Ingrese x para regresar al menú: ')
-        if salir == 'x':
+        exit = input('Ingrese x para regresar al menú: ')
+        if exit == 'x':
             break
 
-    if opcion == '5':
+    if option == '5':
         break
